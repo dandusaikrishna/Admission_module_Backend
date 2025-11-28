@@ -82,5 +82,5 @@ func GetDBConnString() string {
 		" user=" + AppConfig.DBUser +
 		" password=" + AppConfig.DBPassword +
 		" dbname=" + AppConfig.DBName +
-		" sslmode=disable"
+		" sslmode=require"
 }

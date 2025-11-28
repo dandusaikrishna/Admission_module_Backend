@@ -18,10 +18,11 @@ The Admission Module is a production-ready REST API for managing student admissi
 2. [Configuration](#configuration)
 3. [Database Schema](#database-schema)
 4. [API Endpoints](#api-endpoints)
-5. [Email System (Kafka)](#email-system-kafka)
-6. [Payment Processing](#payment-processing)
-7. [Error Handling](#error-handling)
-8. [Testing](#testing)
+5. [Counselor Management](#counselor-management)
+6. [Email System (Kafka)](#email-system-kafka)
+7. [Payment Processing](#payment-processing)
+8. [Error Handling](#error-handling)
+9. [Testing](#testing)
 
 ---
 
@@ -679,6 +680,227 @@ Retrieves DLQ statistics and metrics.
   }
 }
 ```
+
+---
+
+## Counselor Management
+
+### 1. Get All Counselors
+**GET** `/counsellors`
+
+Retrieves all counselors with their stats and capacity information.
+
+**Query Parameters:**
+- `id` (optional): Get a specific counselor with all their assigned leads
+
+**Response (200) - All Counselors:**
+```json
+{
+  "status": "success",
+  "message": "Retrieved 3 counsellors",
+  "data": [
+    {
+      "id": 1,
+      "name": "Ms. Anjali Verma",
+      "email": "anjali@college.edu",
+      "assigned_count": 8,
+      "max_capacity": 10,
+      "active_leads": 8,
+      "available_slots": 2,
+      "utilization": 80.0
+    },
+    {
+      "id": 2,
+      "name": "Mr. Raj Kumar",
+      "email": "raj@college.edu",
+      "assigned_count": 5,
+      "max_capacity": 10,
+      "active_leads": 5,
+      "available_slots": 5,
+      "utilization": 50.0
+    }
+  ]
+}
+```
+
+**Response (200) - Specific Counselor with Leads:**
+```json
+{
+  "status": "success",
+  "message": "Counsellor details retrieved",
+  "data": {
+    "counsellor": {
+      "id": 1,
+      "name": "Ms. Anjali Verma",
+      "email": "anjali@college.edu",
+      "assigned_count": 8,
+      "max_capacity": 10,
+      "available_slots": 2,
+      "utilization": 80.0
+    },
+    "leads": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "+919876543210",
+        "education": "B.Tech",
+        "lead_source": "website",
+        "counselor_id": 1,
+        "registration_fee_status": "PAID",
+        "course_fee_status": "PENDING",
+        "application_status": "INTERVIEW_SCHEDULED",
+        "interview_scheduled_at": "2025-11-28T14:30:00Z",
+        "created_at": "2025-11-17T15:05:34Z"
+      }
+    ]
+  }
+}
+```
+
+**Example Request:**
+```bash
+# Get specific counselor with leads
+curl "http://localhost:8080/counsellors?id=1"
+```
+
+---
+
+### 2. Create Counselor
+**POST** `/create-counsellor`
+
+Creates a new counselor profile.
+
+**Request:**
+```json
+{
+  "name": "Ms. Anjali Verma",
+  "email": "anjali@college.edu",
+  "phone": "+919876543210",
+  "max_capacity": 10
+}
+```
+
+**Response (201):**
+```json
+{
+  "status": "success",
+  "message": "Counsellor created successfully",
+  "data": {
+    "id": 1,
+    "name": "Ms. Anjali Verma",
+    "email": "anjali@college.edu",
+    "max_capacity": 10
+  }
+}
+```
+
+**Validation:**
+- **name:** Required, 1-255 characters
+- **email:** Required, valid format, globally unique
+- **phone:** Optional, E.164 format
+- **max_capacity:** Required, minimum 1
+
+---
+
+### 3. Update Counselor
+**PUT** `/update-counsellor`
+
+Updates an existing counselor's information.
+
+**Request:**
+```json
+{
+  "id": 1,
+  "name": "Ms. Anjali Verma",
+  "email": "anjali.verma@college.edu",
+  "phone": "+919876543210",
+  "max_capacity": 15
+}
+```
+
+**Response (200):**
+```json
+{
+  "status": "success",
+  "message": "Counsellor updated successfully",
+  "data": {
+    "counsellor_id": 1
+  }
+}
+```
+
+**Note:** Only provided fields will be updated. `assigned_count` cannot be manually changed.
+
+---
+
+### 4. Delete Counselor
+**DELETE** `/delete-counsellor`
+
+Deletes a counselor. Only possible if no leads are assigned.
+
+**Query Parameters:**
+- `id` (required): Counselor ID to delete
+
+**Response (200):**
+```json
+{
+  "status": "success",
+  "message": "Counsellor deleted successfully",
+  "data": {
+    "counsellor_id": 1
+  }
+}
+```
+
+**Error (409) - If counselor has assigned leads:**
+```json
+{
+  "status": "error",
+  "error": "Cannot delete counsellor with 5 assigned leads"
+}
+```
+
+---
+
+### 5. Assign Lead to Counselor
+**POST** `/assign-lead`
+
+Manually assigns a lead to a counselor. Validates capacity constraints.
+
+**Request:**
+```json
+{
+  "lead_id": 5,
+  "counsellor_id": 2
+}
+```
+
+**Response (200):**
+```json
+{
+  "status": "success",
+  "message": "Lead assigned successfully",
+  "data": {
+    "lead_id": 5,
+    "counsellor_id": 2
+  }
+}
+```
+
+**Error (409) - If counselor at capacity:**
+```json
+{
+  "status": "error",
+  "error": "Counsellor has reached maximum capacity"
+}
+```
+
+**Constraints:**
+- Counselor must have available slots (`assigned_count < max_capacity`)
+- Lead must exist
+- Transaction-safe operation (atomic update)
+- Updates counselor's `assigned_count` automatically
 
 ---
 

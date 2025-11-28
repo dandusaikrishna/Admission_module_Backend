@@ -32,6 +32,8 @@ type LeadResponse struct {
 	Education            string  `json:"education"`
 	LeadSource           string  `json:"lead_source"`
 	CounselorName        string  `json:"counselor_name"`
+	CounselorEmail       string  `json:"counselor_email"`
+	CounselorPhone       string  `json:"counselor_phone"`
 	MeetLink             string  `json:"meet_link"`
 	ApplicationStatus    string  `json:"application_status"`
 	SelectedCourseID     *int    `json:"selected_course_id,omitempty"`
@@ -55,6 +57,8 @@ func (l *Lead) ToResponse() LeadResponse {
 		Education:            l.Education,
 		LeadSource:           l.LeadSource,
 		CounselorName:        "", // Will be populated by handler
+		CounselorEmail:       "", // Will be populated by handler
+		CounselorPhone:       "", // Will be populated by handler
 		MeetLink:             l.MeetLink,
 		ApplicationStatus:    l.ApplicationStatus,
 		SelectedCourseID:     l.SelectedCourseID,
