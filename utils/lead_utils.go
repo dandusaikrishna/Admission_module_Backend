@@ -161,3 +161,27 @@ func GetCounselorNameByID(ctx context.Context, db *sql.DB, counselorID *int64) s
 	}
 	return name
 }
+
+// GetCounselorDetailsByID fetches counselor name, email, and phone from database
+func GetCounselorDetailsByID(ctx context.Context, db *sql.DB, counselorID *int64) (name, email, phone string) {
+	if counselorID == nil {
+		return "Not Assigned", "-", "-"
+	}
+
+	query := "SELECT name, email, phone FROM counselor WHERE id = $1"
+	err := db.QueryRowContext(ctx, query, *counselorID).Scan(&name, &email, &phone)
+	if err != nil {
+		log.Printf("Error fetching counselor details for ID %d: %v", *counselorID, err)
+		return "Unknown", "-", "-"
+	}
+
+	// Handle null values
+	if email == "" {
+		email = "-"
+	}
+	if phone == "" {
+		phone = "-"
+	}
+
+	return name, email, phone
+}

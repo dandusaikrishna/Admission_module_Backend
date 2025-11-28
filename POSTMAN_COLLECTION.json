@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "admission-module-complete-workflow",
     "name": "Admission Module - Complete Workflow",
-    "description": "Complete lead admission workflow with payment, interview scheduling, and course management",
+    "description": "Complete lead admission workflow with counselor management, payment, interview scheduling, and course management",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -73,10 +73,138 @@
       ]
     },
     {
-      "name": "2. Registration Fee Payment",
+      "name": "2. Counselor Management",
       "item": [
         {
-          "name": "2.1 Initiate Registration Payment (₹1870)",
+          "name": "2.1 Get All Counselors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/counsellors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["counsellors"]
+            }
+          }
+        },
+        {
+          "name": "2.2 Get Counselor by ID with Leads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/counsellors?id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["counsellors"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.3 Create Counselor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ms. Anjali Verma\",\n  \"email\": \"anjali@college.edu\",\n  \"phone\": \"+919876543210\",\n  \"max_capacity\": 10\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/create-counsellor",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["create-counsellor"]
+            }
+          }
+        },
+        {
+          "name": "2.4 Update Counselor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Ms. Anjali Verma\",\n  \"email\": \"anjali.verma@college.edu\",\n  \"phone\": \"+919876543210\",\n  \"max_capacity\": 15\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/update-counsellor",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["update-counsellor"]
+            }
+          }
+        },
+        {
+          "name": "2.5 Delete Counselor",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/delete-counsellor?id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["delete-counsellor"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.6 Assign Lead to Counselor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lead_id\": 5,\n  \"counsellor_id\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/assign-lead",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["assign-lead"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Registration Fee Payment",
+      "item": [
+        {
+          "name": "3.1 Initiate Registration Payment (₹1870)",
           "request": {
             "method": "POST",
             "header": [
@@ -99,7 +227,7 @@
           }
         },
         {
-          "name": "2.2 Verify Registration Payment",
+          "name": "3.2 Verify Registration Payment",
           "request": {
             "method": "POST",
             "header": [
@@ -124,10 +252,10 @@
       ]
     },
     {
-      "name": "3. Interview Scheduling",
+      "name": "4. Interview Scheduling",
       "item": [
         {
-          "name": "3.1 Schedule Interview (Auto-Triggered or Manual)",
+          "name": "4.1 Schedule Interview (Auto-Triggered or Manual)",
           "request": {
             "method": "POST",
             "header": [
@@ -152,10 +280,10 @@
       ]
     },
     {
-      "name": "4. Application Decision",
+      "name": "5. Application Decision",
       "item": [
         {
-          "name": "4.1 Accept Application (with Course Selection)",
+          "name": "5.1 Accept Application (with Course Selection)",
           "request": {
             "method": "POST",
             "header": [
@@ -178,7 +306,7 @@
           }
         },
         {
-          "name": "4.2 Reject Application",
+          "name": "5.2 Reject Application",
           "request": {
             "method": "POST",
             "header": [
@@ -203,10 +331,10 @@
       ]
     },
     {
-      "name": "5. Course Fee Payment",
+      "name": "6. Course Fee Payment",
       "item": [
         {
-          "name": "5.1 Initiate Course Fee Payment (Dynamic)",
+          "name": "6.1 Initiate Course Fee Payment (Dynamic)",
           "request": {
             "method": "POST",
             "header": [
@@ -229,7 +357,7 @@
           }
         },
         {
-          "name": "5.2 Verify Course Fee Payment",
+          "name": "6.2 Verify Course Fee Payment",
           "request": {
             "method": "POST",
             "header": [
@@ -254,10 +382,10 @@
       ]
     },
     {
-      "name": "6. Course Management",
+      "name": "7. Course Management",
       "item": [
         {
-          "name": "6.1 Get All Active Courses",
+          "name": "7.1 Get All Active Courses",
           "request": {
             "method": "GET",
             "header": [],
@@ -271,7 +399,7 @@
           }
         },
         {
-          "name": "6.2 Get Course by ID",
+          "name": "7.2 Get Course by ID",
           "request": {
             "method": "GET",
             "header": [],
@@ -291,7 +419,7 @@
           }
         },
         {
-          "name": "6.3 Create Course (Admin)",
+          "name": "7.3 Create Course (Admin)",
           "request": {
             "method": "POST",
             "header": [
@@ -314,7 +442,7 @@
           }
         },
         {
-          "name": "6.4 Update Course (Admin)",
+          "name": "7.4 Update Course (Admin)",
           "request": {
             "method": "PUT",
             "header": [

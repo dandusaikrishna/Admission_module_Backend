@@ -45,6 +45,13 @@ func SetupRoutes() {
 	http.HandleFunc("/update-course", middleware.EnableCORS(handlers.UpdateCourse))
 	http.HandleFunc("/delete-course", middleware.EnableCORS(handlers.DeleteCourse))
 
+	// Counsellor Management APIs
+	http.HandleFunc("/counsellors", middleware.EnableCORS(handlers.GetCounsellors))
+	http.HandleFunc("/create-counsellor", middleware.EnableCORS(handlers.CreateCounsellor))
+	http.HandleFunc("/update-counsellor", middleware.EnableCORS(handlers.UpdateCounsellor))
+	http.HandleFunc("/delete-counsellor", middleware.EnableCORS(handlers.DeleteCounsellor))
+	http.HandleFunc("/assign-lead", middleware.EnableCORS(handlers.AssignLeadToCounsellor))
+
 	// Payment APIs
 	http.HandleFunc("/initiate-payment", middleware.EnableCORS(handlers.InitiatePayment))
 	http.HandleFunc("/verify-payment", middleware.EnableCORS(handlers.VerifyPayment))

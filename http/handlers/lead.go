@@ -239,11 +239,13 @@ func (s *LeadService) GetLeads(w http.ResponseWriter, r *http.Request) {
 	// Convert leads to response format
 	leadResponses := utils.ConvertLeadsToResponse(leads)
 
-	// Fetch and populate counselor names for each lead
+	// Fetch and populate counselor details for each lead
 	for i := range leadResponses {
 		if leads[i].CounsellorID != nil && *leads[i].CounsellorID > 0 {
-			counselorName := utils.GetCounselorNameByID(ctx, s.db, leads[i].CounsellorID)
-			leadResponses[i].CounselorName = counselorName
+			name, email, phone := utils.GetCounselorDetailsByID(ctx, s.db, leads[i].CounsellorID)
+			leadResponses[i].CounselorName = name
+			leadResponses[i].CounselorEmail = email
+			leadResponses[i].CounselorPhone = phone
 		}
 	}
 
