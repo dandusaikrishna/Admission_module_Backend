@@ -2,6 +2,11 @@
 
 ## Overview
 
+A fully deployed version of both the backend and frontend is available here:
+https://admission-module.vercel.app/
+
+Feel free to explore the live system for better understanding.
+
 The Admission Module is a comprehensive Go-based REST API service for managing student admissions with the following core features:
 
 - **Lead Management**: Create and manage student leads with counselor assignment
