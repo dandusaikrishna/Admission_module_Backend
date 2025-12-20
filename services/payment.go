@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/razorpay/razorpay-go"
@@ -97,12 +96,8 @@ func (s *PaymentService) ValidateAndPreparePayment(req InitiatePaymentRequest) (
 
 // CreateRazorpayOrder creates a Razorpay order
 func (s *PaymentService) CreateRazorpayOrder(req InitiatePaymentRequest) (*InitiatePaymentResponse, error) {
-	keyID := os.Getenv("RazorpayKeyID")
-	keySecret := os.Getenv("RazorpayKeySecret")
-
-	if keyID == "" || keySecret == "" {
-		return nil, fmt.Errorf("razorpay credentials not configured")
-	}
+	keyID := "rzp_test_Rtvf4vr6p3wEUO"
+	keySecret := "UkiK9p2s9PE8EG2j22DNraLl"
 
 	client := razorpay.NewClient(keyID, keySecret)
 
