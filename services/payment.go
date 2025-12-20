@@ -3,6 +3,7 @@ package services
 import (
 	"admission-module/db"
 	"database/sql"
+	"encoding/base64"
 	"fmt"
 	"log"
 	"time"
@@ -99,6 +100,25 @@ func (s *PaymentService) CreateRazorpayOrder(req InitiatePaymentRequest) (*Initi
 	keyID := "rzp_test_Rtvf4vr6p3wEUO"
 	keySecret := "UkiK9p2s9PE8EG2j22DNraLl"
 
+	// Log for debugging
+	log.Printf("Creating Razorpay order with keyID: %s", keyID)
+	log.Printf("Key secret length: %d", len(keySecret))
+
+	// Verify credentials are not empty
+	if keyID == "" || keySecret == "" {
+		return nil, fmt.Errorf("razorpay credentials are empty")
+	}
+
+	// Verify key format
+	if len(keyID) < 10 {
+		return nil, fmt.Errorf("invalid keyID format (too short)")
+	}
+
+	// Create Basic Auth header manually to verify encoding
+	authString := keyID + ":" + keySecret
+	encodedAuth := base64.StdEncoding.EncodeToString([]byte(authString))
+	log.Printf("Auth header: Basic %s (first 20 chars)", encodedAuth[:20])
+
 	client := razorpay.NewClient(keyID, keySecret)
 
 	data := map[string]interface{}{
@@ -107,9 +127,12 @@ func (s *PaymentService) CreateRazorpayOrder(req InitiatePaymentRequest) (*Initi
 		"receipt":  fmt.Sprintf("rcpt_%d_%s", req.StudentID, req.PaymentType),
 	}
 
+	log.Printf("Order data: %+v", data)
+
 	// Create Razorpay order
 	resp, err := client.Order.Create(data, nil)
 	if err != nil {
+		log.Printf("Razorpay order creation error: %v", err)
 		return nil, fmt.Errorf("error creating razorpay order: %w", err)
 	}
 
