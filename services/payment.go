@@ -133,6 +133,8 @@ func (s *PaymentService) CreateRazorpayOrder(req InitiatePaymentRequest) (*Initi
 	resp, err := client.Order.Create(data, nil)
 	if err != nil {
 		log.Printf("Razorpay order creation error: %v", err)
+		log.Printf("Error type: %T", err)
+		log.Printf("Error string: %s", err.Error())
 		return nil, fmt.Errorf("error creating razorpay order: %w", err)
 	}
 
