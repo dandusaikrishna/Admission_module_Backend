@@ -22,7 +22,7 @@ The Admission Module is a comprehensive Go-based REST API service for managing s
 - Database: PostgreSQL 12+
 - Message Broker: Apache Kafka
 - Email: SMTP via Gomail
-- Payment Gateway: Razorpay
+- Payment Gateway: Razorpay 
 - Meeting Scheduling: Google Meet API
 - Excel Processing: Excelize
 
