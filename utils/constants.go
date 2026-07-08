@@ -8,7 +8,6 @@ const (
 	StatusAccepted = "ACCEPTED"
 	StatusRejected = "REJECTED"
 )
-
 // Lead Source Constants
 const (
 	SourceWebsite  = "website"
