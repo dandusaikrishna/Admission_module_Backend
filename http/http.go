@@ -57,7 +57,7 @@ func SetupRoutes() {
 	http.HandleFunc("/verify-payment", middleware.EnableCORS(handlers.VerifyPayment))
 	http.HandleFunc("/payment-status", middleware.EnableCORS(handlers.GetPaymentStatus))
 
-	// Razorpay Webhook - No CORS needed for webhook (server-to-server)
+	// Razorpay Webhook - (server-to-server)
 	http.HandleFunc("/razorpay/webhook", services.RazorpayWebhookHandler)
 
 	// Interview & Application APIs
