@@ -80,7 +80,6 @@ func main() {
 	})
 
 	// Register interview scheduler for Kafka consumer
-	// This callback will be invoked when Kafka consumer receives interview.schedule events
 	services.RegisterInterviewScheduler(func(studentID int, email string) error {
 		_, err := services.ScheduleMeet(studentID, email)
 		return err
