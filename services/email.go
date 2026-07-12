@@ -28,7 +28,6 @@ func SendEmail(to, subject, body string, attachment ...string) error {
 
 	// Publish to Kafka emails topic
 	if err := Publish("emails", fmt.Sprintf("email-%s", to), emailPayload); err != nil {
-		log.Printf("Failed to publish email event to Kafka: %v", err)
 		return fmt.Errorf("failed to queue email: %w", err)
 	}
 
