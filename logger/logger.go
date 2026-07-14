@@ -158,7 +158,6 @@ func (l *Logger) WithCaller() *Logger {
 // WithFields creates a logger with structured fields (simple implementation)
 func (l *Logger) WithFields(fields map[string]interface{}) *Logger {
 	// For simplicity, we'll just prefix the message with fields
-	// In a real implementation, you might want to use a more sophisticated approach
 	prefix := ""
 	for k, v := range fields {
 		prefix += fmt.Sprintf("%s=%v ", k, v)
