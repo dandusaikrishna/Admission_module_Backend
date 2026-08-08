@@ -40,7 +40,6 @@ func InitDB() error {
 }
 
 func createTables() error {
-	// Renamed: counsellors -> counselor
 	counselorTable := `
 	CREATE TABLE IF NOT EXISTS counselor (
 		id SERIAL PRIMARY KEY,
@@ -54,7 +53,6 @@ func createTables() error {
 		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);`
 
-	// Renamed: courses -> course
 	courseTable := `
 	CREATE TABLE IF NOT EXISTS course (
 		id SERIAL PRIMARY KEY,
