@@ -31,12 +31,11 @@ type Config struct {
 var AppConfig Config
 
 func LoadConfig() {
-	// Try loading .env from different locations
 	envLocations := []string{
-		".env",              // project root
-		"config/.env",       // config subdirectory
-		"../config/.env",    // one level up
-		"../../config/.env", // two levels up
+		".env",              
+		"config/.env",      
+		"../config/.env",   
+		"../../config/.env", 
 	}
 
 	for _, location := range envLocations {
@@ -62,7 +61,6 @@ func LoadConfig() {
 		SMTPPass:  os.Getenv("SMTP_PASS"),
 		EmailFrom: os.Getenv("EMAIL_FROM"),
 
-		// Kafka settings (comma-separated brokers)
 		KafkaBrokers:  getEnvWithDefault("KAFKA_BROKERS", "127.0.0.1:9092"),
 		KafkaTopic:    getEnvWithDefault("KAFKA_TOPIC", "admissions.payments"),
 		KafkaDLQTopic: getEnvWithDefault("KAFKA_DLQ_TOPIC", "admissions.payments.dlq"),
