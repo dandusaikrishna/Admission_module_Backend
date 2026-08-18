@@ -35,10 +35,8 @@ func main() {
 	// Load configuration
 	config.LoadConfig()
 
-	// Initialize Kafka producer (non-fatal)
 	services.InitProducer()
 
-	// Initialize Kafka DLQ producer (non-fatal)
 	services.InitDLQProducer()
 
 	// Initialize and start Kafka consumer (non-fatal)
@@ -58,7 +56,6 @@ func main() {
 	}
 
 	// Register email processor for Kafka consumer
-	// This callback will be invoked when Kafka consumer receives email.send events
 	services.RegisterEmailProcessor(func(event map[string]interface{}) error {
 		recipient, ok := event["recipient"].(string)
 		if !ok || recipient == "" {
