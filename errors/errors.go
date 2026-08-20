@@ -11,7 +11,6 @@ import (
 type Error struct {
 	Kind    Kind   `json:"kind"`
 	Message string `json:"message"`
-	// Wrapped underlying error.
 	WrappedErr error `json:"wrapped_err,omitempty"`
 }
 
