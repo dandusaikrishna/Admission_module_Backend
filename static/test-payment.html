@@ -72,7 +72,6 @@
     <div id="response"></div>
 
     <script>
-        // Get the current domain dynamically (works for localhost, IP, or domain)
         const API_BASE_URL = window.location.protocol + '//' + window.location.host;
         
         function updateAmount() {
@@ -83,8 +82,7 @@
             const courseIdInput = document.getElementById('courseId');
             
             if (paymentType === 'REGISTRATION') {
-                // Registration: Show amount field, fixed at 1870
-                amountInput.value = 1870;
+                amountInput.value = 1879;
                 amountInput.disabled = true;
                 amountGroup.style.display = 'block';
                 courseIdGroup.style.display = 'none';
