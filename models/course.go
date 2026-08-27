@@ -1,8 +1,6 @@
 package models
 
 import "time"
-
-// Course represents an academic course offered by the institution
 type Course struct {
 	ID          int       `json:"id"`
 	Name        string    `json:"name"`
@@ -14,7 +12,7 @@ type Course struct {
 	UpdatedAt   time.Time `json:"updated_at"`
 }
 
-// CourseResponse is the structured response for API responses
+
 type CourseResponse struct {
 	ID          int     `json:"id"`
 	Name        string  `json:"name"`
