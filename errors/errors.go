@@ -37,12 +37,12 @@ type Kind uint8
 // Transport agnostic error "kinds"
 const (
 	Other        Kind = iota // Unclassified error
-	Internal                 // Internal error
-	Conflict                 // Conflict when an entity already exists
-	Invalid                  // Invalid input, validation error etc
-	NotFound                 // Entity does not exist
-	Unauthorized             // Unauthorized access
-	Forbidden                // Forbidden access
+	Internal                 
+	Conflict             
+	Invalid                 
+	NotFound                 
+	Unauthorized            
+	Forbidden           
 )
 
 func (k Kind) String() string {
@@ -104,7 +104,6 @@ func NewForbiddenError(msg string) error {
 	return E(Forbidden, msg)
 }
 
-// NewConflictError creates a new conflict error
 func NewConflictError(msg string) error {
 	return E(Conflict, msg)
 }
