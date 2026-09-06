@@ -2,7 +2,6 @@ package config
 
 import (
 	"os"
-
 	"github.com/joho/godotenv"
 )
 
@@ -22,7 +21,6 @@ type Config struct {
 	SMTPUser  string
 	SMTPPass  string
 	EmailFrom string
-	// Kafka
 	KafkaBrokers  string
 	KafkaTopic    string
 	KafkaDLQTopic string
