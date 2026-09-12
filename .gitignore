@@ -1,4 +1,5 @@
 .env
+.env2
 __debug_bin.exe
 __debug_bin
 bin/
