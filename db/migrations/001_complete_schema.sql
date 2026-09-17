@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS course (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Student Lead table
+
 CREATE TABLE IF NOT EXISTS student_lead (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -70,7 +70,6 @@ CREATE TABLE IF NOT EXISTS student_lead (
 -- 2. PAYMENT TABLES
 -- ============================================
 
--- Registration Payment table
 CREATE TABLE IF NOT EXISTS registration_payment (
     id SERIAL PRIMARY KEY,
     student_id INTEGER NOT NULL UNIQUE,
