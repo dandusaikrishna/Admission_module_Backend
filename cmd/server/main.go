@@ -17,7 +17,6 @@ import (
 )
 
 func main() {
-	// Determine project root by searching upward for go.mod
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatal("Error getting current working directory:", err)
