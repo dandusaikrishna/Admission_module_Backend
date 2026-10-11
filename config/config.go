@@ -33,7 +33,7 @@ func LoadConfig() {
 		".env",              
 		"config/.env",      
 		"../config/.env",   
-		"../../config/.env", 
+		// "../../config/.env", 
 	}
 
 	for _, location := range envLocations {
