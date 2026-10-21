@@ -16,11 +16,11 @@ type Level int
 const (
 	// DEBUG level for detailed debugging information
 	DEBUG Level = iota
-	// INFO level for general information
+
 	INFO
-	// WARN level for warning messages
+
 	WARN
-	// ERROR level for error messages
+
 	ERROR
 	// FATAL level for fatal errors that cause program exit
 	FATAL
