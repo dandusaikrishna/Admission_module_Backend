@@ -4,7 +4,7 @@
 
 **Base URL:** `http://localhost:8080`  
 **Version:** 2.2.0  
-**Last Updated:** November 26, 2025 (Payment Restrictions Update)  
+**Last Updated:** Oct 21, 2026 (Payment Restrictions Update)  
 **Go Version:** 1.24  
 **Database:** PostgreSQL 12+  
 **Message Broker:** Apache Kafka  
