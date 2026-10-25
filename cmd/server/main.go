@@ -96,7 +96,6 @@ func main() {
 	// Wait for shutdown signal
 	<-sigChan
 
-	// Stop DLQ auto-retry
 	services.StopDLQAutoRetry()
 
 	// Stop consumer gracefully
