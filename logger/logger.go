@@ -14,17 +14,13 @@ import (
 type Level int
 
 const (
-	// DEBUG level for detailed debugging information
-	DEBUG Level = iota
-
+	DEBUG Level = iota // detailed debugging information
 	INFO
-
 	WARN
-
 	ERROR
-	// FATAL level for fatal errors that cause program exit
-	FATAL
+	FATAL // fatal errors that cause program exit
 )
+ 
 
 // String returns the string representation of the log level
 func (l Level) String() string {
