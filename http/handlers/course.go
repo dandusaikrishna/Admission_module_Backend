@@ -52,13 +52,12 @@ func GetCourseByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	courseIDStr := r.URL.Query().Get("id")
-	if courseIDStr == "" {
+	id := r.URL.Query().Get("id")
+	if id == "" {
 		response.ErrorResponse(w, http.StatusBadRequest, "Course ID is required")
 		return
 	}
-
-	courseID, err := strconv.Atoi(courseIDStr)
+	courseID, err := strconv.Atoi(id)
 	if err != nil {
 		response.ErrorResponse(w, http.StatusBadRequest, "Invalid course ID")
 		return
@@ -66,12 +65,10 @@ func GetCourseByID(w http.ResponseWriter, r *http.Request) {
 
 	var course models.Course
 	query := `SELECT id, name, description, fee, duration, is_active, created_at, updated_at FROM course WHERE id = $1`
-	err = db.DB.QueryRowContext(r.Context(), query, courseID).Scan(&course.ID, &course.Name, &course.Description, &course.Fee, &course.Duration, &course.IsActive, &course.CreatedAt, &course.UpdatedAt)
-	if err != nil {
+	if err := db.DB.QueryRowContext(r.Context(), query, courseID).Scan(&course.ID, &course.Name, &course.Description, &course.Fee, &course.Duration, &course.IsActive, &course.CreatedAt, &course.UpdatedAt); err != nil {
 		response.ErrorResponse(w, http.StatusNotFound, "Course not found")
 		return
 	}
-
 	response.SuccessResponse(w, http.StatusOK, "Course retrieved", course)
 }
 
