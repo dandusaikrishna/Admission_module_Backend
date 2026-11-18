@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Base URL:** `http://localhost:8080`  
+**Base URL:** `http://localhost:8000`  
 **Version:** 2.2.0  
 **Last Updated:** Oct 21, 2026 (Payment Restrictions Update)  
 **Go Version:** 1.24  
