@@ -1,5 +1,5 @@
 {
-  "info": {
+  "infoo": {
     "_postman_id": "admission-module-complete-workflow",
     "name": "Admission Module - Complete Workflow",
     "description": "Complete lead admission workflow with counselor management, payment, interview scheduling, and course management",
