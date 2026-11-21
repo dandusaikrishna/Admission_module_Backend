@@ -1,6 +1,13 @@
+# Environment variables
 .env
+.env.*
 
-__debug_bin.exe
+# Debug binaries
 __debug_bin
+__debug_bin.exe
+
+# Build output
 bin/
-.vscode/launch.json
+
+# Editor/IDE configuration
+.vscode/
